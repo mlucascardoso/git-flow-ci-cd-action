@@ -1,0 +1,28 @@
+name: 'git flow ci cd action'
+description: 'Github action to improve git flow usage'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
+author: 'Lucas M Cardoso'
+inputs:
+  master_branch:
+    description: 'The master branch'
+    required: true
+    default: 'main'
+  development_branch:
+    description: 'The development branch'
+    required: true
+    default: 'develop'
+outputs:
+  master_branch:
+    description: 'The master branch name'
+  development_branch:
+    description: 'The development branch name'
+  current_branch:
+    description: 'The current_branch branch name'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.master }}
+    - ${{ inputs.development }}
