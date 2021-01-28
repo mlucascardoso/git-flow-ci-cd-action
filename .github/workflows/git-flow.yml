@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Local test with act
     steps:
+      - uses: actions/checkout@v1
       - name: Extract current branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
