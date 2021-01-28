@@ -26,6 +26,12 @@ jobs:
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
           development_branch: 'development'
+          feature_branch_prefix: 'feature'
+          bugfix_branch_prefix: 'bugfix'
+          release_branch_prefix: 'release'
+          hotfix_branch_prefix: 'hotfix'
+          support_branch_prefix: 'support'
+          tag_prefix: 'v'
           tag: v${{ steps.extract_tag.outputs.tag }}
       - name: Get the branches names
         run: |
@@ -34,3 +40,4 @@ jobs:
           echo "${{ steps.git-flow.outputs.tag }}"
           echo "${{ steps.git-flow.outputs.development_branch }}"
           echo "${{ steps.git-flow.outputs.master_branch }}"
+          echo "${{ steps.git-flow.outputs.cuka }}"
