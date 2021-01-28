@@ -13,13 +13,15 @@ inputs:
     description: 'The development branch'
     required: true
     default: 'develop'
-# outputs:
-#   master_branch:
-#     description: 'The master branch name'
-#   development_branch:
-#     description: 'The development branch name'
-#   current_branch:
-#     description: 'The current_branch branch name'
+  current_branch:
+    description: 'The current branch'
+    required: true
+  github_token:
+    description: 'The github_token token'
+    required: true
+  tag:
+    description: 'The tag name'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
