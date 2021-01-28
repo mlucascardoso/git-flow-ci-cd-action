@@ -5,10 +5,15 @@ branch=$INPUT_CURRENT_BRANCH
 feature_branch_prefix=$INPUT_FEATURE_BRANCH_PREFIX
 cuka="nao tem"
 
-case $feature_branch_prefix in
-           *"$branch"*)
-   cuka="its there"
-esac
+echo "It's there222!"
+
+if [[ $(expr match "$branch" /$feature_branch_prefix/) != 0 ]]; then
+  echo "It's there!"
+fi
+
+# git checkout develop
+# git merge --no-ff feature/MYFEATURE
+#  	git branch -d feature/MYFEATURE
 
 # feature
 # hotfix
