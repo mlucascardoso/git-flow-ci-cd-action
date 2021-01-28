@@ -22,7 +22,10 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: git-flow
         with:
-          master: 'main'
-          development: 'development'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.extract_branch.outputs.branch }}
+          master_branch: 'main'
+          development_branch: 'development'
+          tag: v${{ steps.extract_tag.outputs.tag }}
       - name: Get the branches names
         run: echo "${{ steps.git-flow.outputs.master_branch }}" "${{ steps.git-flow.outputs.development_branch }}"

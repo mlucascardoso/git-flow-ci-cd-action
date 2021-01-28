@@ -13,13 +13,13 @@ inputs:
     description: 'The development branch'
     required: true
     default: 'develop'
-outputs:
-  master_branch:
-    description: 'The master branch name'
-  development_branch:
-    description: 'The development branch name'
-  current_branch:
-    description: 'The current_branch branch name'
+# outputs:
+#   master_branch:
+#     description: 'The master branch name'
+#   development_branch:
+#     description: 'The development branch name'
+#   current_branch:
+#     description: 'The current_branch branch name'
 runs:
   using: 'docker'
   image: 'Dockerfile'
