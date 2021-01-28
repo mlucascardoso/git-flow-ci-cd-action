@@ -7,6 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     name: Local test with act
     steps:
+      - name: Extract current branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Extract tag name
+        shell: bash
+        run: |
+          branch=${{ steps.extract_branch.outputs.branch }}
+          echo "##[set-output name=tag;]$(echo ${branch#release/})"
+        id: extract_tag
       - name: Get branch names
         uses: ./ # Uses an action in the root directory
         id: git-flow
