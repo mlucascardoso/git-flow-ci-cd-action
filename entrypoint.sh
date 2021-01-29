@@ -16,10 +16,17 @@ tag_prefix=$INPUT_TAG_BRANCH_PREFIX
 
 # Feature finish
 if [[ -z "${current_branch##*$feature_branch_prefix*}" ]] ;then
+    echo "feature"
     # git checkout $dev_branch
     # git merge --no-ff $current_branch
     # git branch -d $current_branch
 elif [[ -z "${current_branch##*$bugfix_branch_prefix*}" ]] ;then
-    echo "NOT found"
+    echo "bugfix"
+elif [[ -z "${current_branch##*$release_branch_prefix*}" ]] ;then
+    echo "release"
+elif [[ -z "${current_branch##*$hotfix_branch_prefix*}" ]] ;then
+    echo "hotfix"
+elif [[ -z "${current_branch##*$support_branch_prefix*}" ]] ;then
+    echo "support"
 fi
 
