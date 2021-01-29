@@ -19,8 +19,23 @@ inputs:
   github_token:
     description: 'The github_token token'
     required: true
-  tag:
-    description: 'The tag name'
+  feature_branch_prefix:
+    description: 'The github_token token'
+    required: true
+  bugfix_branch_prefix:
+    description: 'The github_token token'
+    required: true
+  release_branch_prefix:
+    description: 'The github_token token'
+    required: true
+  hotfix_branch_prefix:
+    description: 'The github_token token'
+    required: true
+  support_branch_prefix:
+    description: 'The github_token token'
+    required: true
+  tag_prefix:
+    description: 'The github_token token'
     required: true
 runs:
   using: 'docker'
