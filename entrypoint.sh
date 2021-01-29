@@ -10,8 +10,7 @@ git config user.email "$email"
 git config user.name "$name"
 git config user.password "$password"
 
-git remote add upstream "https://github.com/mlucascardoso/git-flow-ci-cd-action"
-# git remote add upstream "https://github.com/mlucascardoso/git-flow-ci-cd-action"
+git remote -v
 
 
 current_branch=$INPUT_CURRENT_BRANCH
