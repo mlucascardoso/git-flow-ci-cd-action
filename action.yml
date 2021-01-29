@@ -11,6 +11,9 @@ inputs:
   name:
     description: 'The user first and last name'
     required: true
+  username:
+    description: 'The username'
+    required: true
   password:
     description: 'The password'
     required: true

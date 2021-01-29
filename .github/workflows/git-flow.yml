@@ -24,6 +24,7 @@ jobs:
         with:
           email: clucasmedeiros@gmail.com
           name: Lucas M Cardoso
+          username: mlucascardoso
           password: ${{ secrets.AUTH_PASS }}
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'

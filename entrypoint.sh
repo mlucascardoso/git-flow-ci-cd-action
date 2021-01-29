@@ -5,13 +5,12 @@ set -e
 email=$INPUT_EMAIL
 name=$INPUT_NAME
 password=$INPUT_PASSWORD
+username=$INPUT_USERNAME
 
 git config user.email "$email"
 git config user.name "$name"
 git config user.password "$password"
-
-git remote -v
-
+git config credential.username "$username"
 
 current_branch=$INPUT_CURRENT_BRANCH
 master_branch=$INPUT_MASTER_BRANCH
