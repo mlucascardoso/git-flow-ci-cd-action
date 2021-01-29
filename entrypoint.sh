@@ -25,7 +25,8 @@ if [[ -z "${current_branch##*$feature_branch_prefix*}" ]] ;then
     echo "feature" 
     git checkout $dev_branch
     git merge --no-ff origin/$current_branch
-    git branch -D $current_branch
+    git branch -D origin/$current_branch
+    git push origin $dev_branch
 elif [[ -z "${current_branch##*$bugfix_branch_prefix*}" ]] ;then
     echo "bugfix"
 elif [[ -z "${current_branch##*$release_branch_prefix*}" ]] ;then
