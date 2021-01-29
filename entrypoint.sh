@@ -10,6 +10,10 @@ git config user.email "$email"
 git config user.name "$name"
 git config user.password "$password"
 
+git remote add upstream "https://github.com/mlucascardoso/git-flow-ci-cd-action"
+# git remote add upstream "https://github.com/mlucascardoso/git-flow-ci-cd-action"
+
+
 current_branch=$INPUT_CURRENT_BRANCH
 master_branch=$INPUT_MASTER_BRANCH
 dev_branch=$INPUT_DEVELOPMENT_BRANCH
@@ -26,6 +30,8 @@ if [[ -z "${current_branch##*$feature_branch_prefix*}" ]] ;then
     git checkout $dev_branch
     git merge --no-ff origin/$current_branch
     #git branch - $current_branch
+    # https://github.com/mlucascardoso/git-flow-ci-cd-action
+    # git push https://<YOUR-PERSONAL-ACCESS-TOKEN>@github.com/<User-Name>/<Repo-Name>.git
     git push --delete origin $current_branch
     git push origin $dev_branch
 elif [[ -z "${current_branch##*$bugfix_branch_prefix*}" ]] ;then
