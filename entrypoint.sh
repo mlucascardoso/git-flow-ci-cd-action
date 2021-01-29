@@ -31,7 +31,7 @@ if [[ -z "${current_branch##*$feature_branch_prefix*}" ]] ;then
     #git branch - $current_branch
     # https://github.com/mlucascardoso/git-flow-ci-cd-action
     # git push https://<YOUR-PERSONAL-ACCESS-TOKEN>@github.com/<User-Name>/<Repo-Name>.git
-    git push --delete origin $current_branch
+    # git push --delete origin $current_branch
     git push origin $dev_branch
 elif [[ -z "${current_branch##*$bugfix_branch_prefix*}" ]] ;then
     echo "bugfix"
