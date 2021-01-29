@@ -2,9 +2,13 @@
 set -e
 
 # git credentials
-git config user.email ${INPUT_EMAIL}
-git config user.name ${INPUT_NAME}
-git config user.password ${INPUT_GITHUB_TOKEN}
+email=$INPUT_EMAIL
+name=$INPUT_NAME
+password=$INPUT_PASSWORD
+
+git config user.email "$email"
+git config user.name "$name"
+git config user.password "$password"
 
 current_branch=$INPUT_CURRENT_BRANCH
 master_branch=$INPUT_MASTER_BRANCH
