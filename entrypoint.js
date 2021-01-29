@@ -53,7 +53,7 @@ const main = async () => {
     await exec('bash', [path.join(__dirname, './entrypoint.sh')], {
         env: {
             ...process.env,
-            INPUT_BRANCH: branch,
+            INPUT_CURRENT_BRANCH: branch,
             INPUT_REPOSITORY: repository,
         }
     });
