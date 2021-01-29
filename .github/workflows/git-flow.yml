@@ -22,7 +22,9 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: git-flow
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          email: clucasmedeiros@gmail.com
+          name: Lucas M Cardoso
+          password: ${{ secrets.AUTH_PASS }}
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
           development_branch: 'development'

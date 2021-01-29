@@ -5,6 +5,15 @@ branding:
   color: 'blue'
 author: 'Lucas M Cardoso'
 inputs:
+  email:
+    description: 'The github email'
+    required: true
+  name:
+    description: 'The user first and last name'
+    required: true
+  password:
+    description: 'The password'
+    required: true
   master_branch:
     description: 'The master branch'
     required: true
@@ -16,26 +25,23 @@ inputs:
   current_branch:
     description: 'The current branch'
     required: true
-  github_token:
-    description: 'The github_token token'
-    required: true
   feature_branch_prefix:
-    description: 'The github_token token'
+    description: 'The feature_branch_prefix token'
     required: true
   bugfix_branch_prefix:
-    description: 'The github_token token'
+    description: 'The bugfix_branch_prefix token'
     required: true
   release_branch_prefix:
-    description: 'The github_token token'
+    description: 'The release_branch_prefix token'
     required: true
   hotfix_branch_prefix:
-    description: 'The github_token token'
+    description: 'The hotfix_branch_prefix token'
     required: true
   support_branch_prefix:
-    description: 'The github_token token'
+    description: 'The support_branch_prefix token'
     required: true
   tag_prefix:
-    description: 'The github_token token'
+    description: 'The tag_prefix token'
     required: true
 runs:
   using: 'docker'
