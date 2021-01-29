@@ -11,6 +11,7 @@ git config user.email "$email"
 git config user.name "$name"
 git config user.password "$password"
 git config credential.username "$username"
+git config credential.password "$username"
 
 current_branch=$INPUT_CURRENT_BRANCH
 master_branch=$INPUT_MASTER_BRANCH
