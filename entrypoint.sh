@@ -3,12 +3,14 @@ set -e
 
 branch=$INPUT_CURRENT_BRANCH
 feature_branch_prefix=$INPUT_FEATURE_BRANCH_PREFIX
-cuka="nao tem"
 
-echo "It's there222!"
+echo $feature_branch_prefix
+echo $branch
 
-if [[ $(expr match "$branch" /$feature_branch_prefix/) != 0 ]]; then
-  echo "It's there!"
+if [[ -z "${branch##*$feature_branch_prefix*}" ]] ;then
+    echo "found"
+else
+    echo "NOT found"
 fi
 
 # git checkout develop
