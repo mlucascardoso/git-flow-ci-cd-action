@@ -12,12 +12,12 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: Extract tag name
-        shell: bash
-        run: |
-          branch=${{ steps.extract_branch.outputs.branch }}
-          echo "##[set-output name=tag;]$(echo ${branch#release/})"
-        id: extract_tag
+      # - name: Extract tag name
+      #   shell: bash
+      #   run: |
+      #     branch=${{ steps.extract_branch.outputs.branch }}
+      #     echo "##[set-output name=tag;]$(echo ${branch#release/})"
+      #   id: extract_tag
       - name: Get branch names
         uses: ./ # Uses an action in the root directory
         id: git-flow
@@ -26,18 +26,10 @@ jobs:
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
           development_branch: 'development'
-          feature_branch_prefix: 'feature'
-          bugfix_branch_prefix: 'bugfix'
-          release_branch_prefix: 'release'
-          hotfix_branch_prefix: 'hotfix'
-          support_branch_prefix: 'support'
+          feature_branch_prefix: 'feature/'
+          bugfix_branch_prefix: 'bugfix/'
+          release_branch_prefix: 'release/'
+          hotfix_branch_prefix: 'hotfix/'
+          support_branch_prefix: 'support/'
           tag_prefix: 'v'
-          tag: v${{ steps.extract_tag.outputs.tag }}
-      - name: Get the branches names
-        run: |
-          echo "${{ steps.git-flow.outputs.github_token }}"
-          echo "${{ steps.git-flow.outputs.branch }}"
-          echo "${{ steps.git-flow.outputs.tag }}"
-          echo "${{ steps.git-flow.outputs.development_branch }}"
-          echo "${{ steps.git-flow.outputs.master_branch }}"
-          echo "${{ steps.git-flow.outputs.cuka }}"
+          # tag: v${{ steps.extract_tag.outputs.tag }}
