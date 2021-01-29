@@ -18,7 +18,7 @@ tag_prefix=$INPUT_TAG_BRANCH_PREFIX
 if [[ -z "${current_branch##*$feature_branch_prefix*}" ]] ;then
     echo "feature" 
     git checkout $dev_branch
-    git merge --no-ff $current_branch
+    git merge --no-ff origin/$current_branch
     git branch -d $current_branch
 elif [[ -z "${current_branch##*$bugfix_branch_prefix*}" ]] ;then
     echo "bugfix"
