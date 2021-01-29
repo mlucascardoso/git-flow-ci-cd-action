@@ -5,17 +5,17 @@ branding:
   color: 'blue'
 author: 'Lucas M Cardoso'
 inputs:
-  email:
-    description: 'The github email'
-    required: true
-  name:
-    description: 'The user first and last name'
-    required: true
-  username:
-    description: 'The username'
-    required: true
-  password:
-    description: 'The password'
+  # email:
+  #   description: 'The github email'
+  #   required: true
+  # name:
+  #   description: 'The user first and last name'
+  #   required: true
+  # username:
+  #   description: 'The username'
+  #   required: true
+  github_token:
+    description: 'The github_token'
     required: true
   master_branch:
     description: 'The master branch'
