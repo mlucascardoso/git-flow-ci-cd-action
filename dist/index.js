@@ -2,6 +2,44 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 109:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core_1 = __nccwpck_require__(186);
+const github_1 = __nccwpck_require__(438);
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    const token = core_1.getInput('github_token', { required: true });
+    // const repository = core.getInput('repository')
+    const client = github_1.getOctokit(token);
+    yield deleteBranch(client);
+});
+const deleteBranch = (client) => __awaiter(void 0, void 0, void 0, function* () {
+    const currentBranch = core_1.getInput('current_branch');
+    const branchToDelete = yield client.refs.get(Object.assign(Object.assign({}, github_1.context.repo), { pull_number: currentBranch }));
+    console.log('branchToDelete->', branchToDelete);
+});
+main()
+    .catch((err) => {
+    console.error(err);
+    console.error(err.stack);
+    process.exit(err.code || -1);
+});
+
+
+/***/ }),
+
 /***/ 351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -5774,39 +5812,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 713:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(186)
-const github = __nccwpck_require__(438)
-
-const main = async () => {
-    const token = core.getInput('github_token', { required: true })
-    // const repository = core.getInput('repository')
-    const client = github.getOctokit(token)
-    await deleteBranch(client)
-}
-
-const deleteBranch = async (client) => {
-    const currentBranch = core.getInput('current_branch')
-    const branchToDelete = await client.refs.get({
-        ...github.context.repo,
-        pull_number: currentBranch,
-    })
-
-    console.log('branchToDelete->', branchToDelete);
-}
-
-main()
-    .catch(err => {
-        console.error(err);
-        console.error(err.stack);
-        process.exit(err.code || -1);
-    })
-
-
-/***/ }),
-
 /***/ 877:
 /***/ ((module) => {
 
@@ -5957,6 +5962,6 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(713);
+/******/ 	return __nccwpck_require__(109);
 /******/ })()
 ;
