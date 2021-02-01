@@ -8,7 +8,9 @@ if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
     # git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH} --follow-tags;
     # git remote -v 
     # git branch -a
-    git branch -D remotes/origin/${INPUT_CURRENT_BRANCH}
+    # git branch -D remotes/origin/${INPUT_CURRENT_BRANCH}
+    # git push origin :${INPUT_CURRENT_BRANCH}
+    git push "${remote_repo}" HEAD:":${INPUT_CURRENT_BRANCH}";
     echo "feature"
 elif [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_BUGFIX_BRANCH_PREFIX*}" ]] ;then
     echo "bugfix"
