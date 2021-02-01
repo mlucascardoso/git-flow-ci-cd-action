@@ -2,7 +2,10 @@
   "name": "git-flow-ci-cd-action",
   "version": "1.0.0",
   "description": "Github action to handle git flow",
-  "main": "main.js",
+  "main": "src/main",
+  "scripts": {
+    "build": "ncc build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mlucascardoso/git-flow-ci-cd-action.git"
@@ -17,5 +20,8 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.27.0"
   }
 }
