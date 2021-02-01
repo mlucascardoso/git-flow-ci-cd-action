@@ -1,18 +1,15 @@
 {
   "name": "git-flow-ci-cd-action",
   "version": "1.0.0",
-  "description": "",
+  "description": "Github action to handle git flow",
   "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mlucascardoso/git-flow-ci-cd-action.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Lucas M Cardoso",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mlucascardoso/git-flow-ci-cd-action/issues"
   },
