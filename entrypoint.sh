@@ -10,7 +10,7 @@ if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
     # git branch -a
     # git branch -D remotes/origin/${INPUT_CURRENT_BRANCH}
     # git push origin :${INPUT_CURRENT_BRANCH}
-    git push "${remote_repo}" HEAD:":${INPUT_CURRENT_BRANCH}";
+    git push "${remote_repo}" HEAD:":${INPUT_CURRENT_BRANCH}" --force;
     echo "feature"
 elif [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_BUGFIX_BRANCH_PREFIX*}" ]] ;then
     echo "bugfix"
