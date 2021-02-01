@@ -14,7 +14,9 @@ if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
     curl \
         -X DELETE \
         -H "Accept: application/vnd.github.v3+json; Authorization: Bearer ${INPUT_GITHUB_TOKEN}" \
-        https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${INPUT_CURRENT_BRANCH}
+        https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${INPUT_CURRENT_BRANCH};
+    
+    echo https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/heads/${INPUT_CURRENT_BRANCH}
     echo "feature"
 elif [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_BUGFIX_BRANCH_PREFIX*}" ]] ;then
     echo "bugfix"
