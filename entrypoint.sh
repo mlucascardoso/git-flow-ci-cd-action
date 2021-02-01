@@ -11,6 +11,7 @@ if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
     # git branch -D remotes/origin/${INPUT_CURRENT_BRANCH}
     # git push origin :${INPUT_CURRENT_BRANCH}
     # git push "${remote_repo}" HEAD:":${INPUT_CURRENT_BRANCH}" --force;
+    
     curl \
         -X DELETE \
         -H "Accept: application/vnd.github.v3+json; Authorization: Bearer ${INPUT_GITHUB_TOKEN}" \
