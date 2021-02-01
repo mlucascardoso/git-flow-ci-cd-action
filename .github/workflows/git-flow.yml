@@ -12,19 +12,10 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      # - name: Extract tag name
-      #   shell: bash
-      #   run: |
-      #     branch=${{ steps.extract_branch.outputs.branch }}
-      #     echo "##[set-output name=tag;]$(echo ${branch#release/})"
-      #   id: extract_tag
-      - name: Get branch names
+      - name: Run git flow process
         uses: ./ # Uses an action in the root directory
         id: git-flow
         with:
-          # email: clucasmedeiros@gmail.com
-          # name: Lucas M Cardoso
-          # username: mlucascardoso
           github_token: ${{ secrets.GITHUB_TOKEN }}
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
@@ -35,4 +26,3 @@ jobs:
           hotfix_branch_prefix: 'hotfix/'
           support_branch_prefix: 'support/'
           tag_prefix: 'v'
-          # tag: v${{ steps.extract_tag.outputs.tag }}
