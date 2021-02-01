@@ -13,7 +13,13 @@
     "type": "git",
     "url": "git+https://github.com/mlucascardoso/git-flow-ci-cd-action.git"
   },
-  "keywords": [],
+  "keywords": [
+      "git-flow",
+      "merge",
+      "publish",
+      "finish",
+      "release"
+  ],
   "author": "Lucas M Cardoso",
   "license": "MIT",
   "bugs": {
