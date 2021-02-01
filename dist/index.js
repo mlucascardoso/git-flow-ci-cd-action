@@ -26,9 +26,12 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     yield deleteBranch(client);
 });
 const deleteBranch = (client) => __awaiter(void 0, void 0, void 0, function* () {
-    const currentBranch = core_1.getInput('current_branch');
-    const branchToDelete = yield client.refs.get(Object.assign(Object.assign({}, github_1.context.repo), { pull_number: currentBranch }));
-    console.log('branchToDelete->', branchToDelete);
+    // const currentBranch = getInput('current_branch');
+    // const branchToDelete = await client.refs.get({
+    //     ...context.repo,
+    //     pull_number: currentBranch,
+    // });
+    console.log('branchToDelete->', client.refs);
 });
 main()
     .catch((err) => {
