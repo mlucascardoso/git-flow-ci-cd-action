@@ -48,6 +48,7 @@ const main = async () => {
         };
         if (process.env.INPUT_GITHUB_TOKEN) headers.Authorization = `token ${process.env.INPUT_GITHUB_TOKEN}`;
         const body = JSON.parse(await get(`https://api.github.com/repos/${repository}`, { headers }))
+        console.log(body)
         branch = body.default_branch;
     }
     await exec('bash', [path.join(__dirname, './entrypoint.sh')], {
