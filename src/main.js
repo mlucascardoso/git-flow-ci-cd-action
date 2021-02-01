@@ -10,7 +10,7 @@ const main = async () => {
 
 const deleteBranch = async (client) => {
     const currentBranch = core.getInput('current_branch')
-    const branchToDelete = await client.pulls.get({
+    const branchToDelete = await client.refs.get({
         ...github.context.repo,
         pull_number: currentBranch,
     })
