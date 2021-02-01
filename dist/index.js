@@ -23,7 +23,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const token = core_1.getInput('github_token', { required: true });
     // const repository = core.getInput('repository')
     const client = github_1.getOctokit(token);
-    console.log(client);
+    core_1.info(`context -> ${github_1.context}`);
+    core_1.info(`client -> ${client.git.getRef}`);
     // await deleteBranch(client);
 });
 // const deleteBranch = async (client: any) => {
