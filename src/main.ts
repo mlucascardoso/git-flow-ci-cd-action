@@ -1,5 +1,5 @@
 import { getInput } from '@actions/core';
-import { context, getOctokit } from '@actions/github';
+import { getOctokit } from '@actions/github';
 
 const main = async () => {
     const token = getInput('github_token', { required: true });
@@ -9,14 +9,14 @@ const main = async () => {
 };
 
 const deleteBranch = async (client: any) => {
-    const currentBranch = getInput('current_branch');
+    // const currentBranch = getInput('current_branch');
 
-    const branchToDelete = await client.refs.get({
-        ...context.repo,
-        pull_number: currentBranch,
-    });
+    // const branchToDelete = await client.refs.get({
+    //     ...context.repo,
+    //     pull_number: currentBranch,
+    // });
 
-    console.log('branchToDelete->', branchToDelete);
+    console.log('branchToDelete->', client.refs);
 };
 
 main()
