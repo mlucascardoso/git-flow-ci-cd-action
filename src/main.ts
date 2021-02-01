@@ -1,11 +1,12 @@
-import { getInput } from '@actions/core';
-import { getOctokit } from '@actions/github';
+import { getInput, info } from '@actions/core';
+import { context, getOctokit } from '@actions/github';
 
 const main = async () => {
     const token = getInput('github_token', { required: true });
     // const repository = core.getInput('repository')
     const client = getOctokit(token);
-    console.log(client);
+    info(`context -> ${context}`);
+    info(`client -> ${client.git.getRef}`);
 
     // await deleteBranch(client);
 };
