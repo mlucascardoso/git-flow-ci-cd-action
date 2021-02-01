@@ -5,10 +5,17 @@ const main = async () => {
     const token = core.getInput('github_token', { required: true })
     const repository = core.getInput('repository')
     const client = github.getOctokit(token)
-    console.log(repository);
 }
 
-const deleteBranch = async () => { }
+const deleteBranch = async (client) => {
+    const currentBranch = core.getInput('current_branch')
+    const branchToDelete = await client.pulls.get({
+        ...github.context.repo,
+        pull_number: currentBranch,
+    })
+
+    console.log('branchToDelete->', branchToDelete);
+}
 
 main()
     .catch(err => {
