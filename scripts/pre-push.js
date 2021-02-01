@@ -5,7 +5,8 @@ execSync(`git add ./dist/`);
 
 try {
     const lastCommitMessage = execSync('git log -1 --oneline').toString();
-    const commitMessage = `build: ${lastCommitMessage.split(': ')[1].replace('\n', '')}`;
+    const msg = lastCommitMessage.split(': ')[1].replace('\n', '');
+    const commitMessage = `build: ${msg}`;
     execSync(`git commit -m "${commitMessage}" --no-verify`);
 } catch (error) {
     console.warn('Nothing to commit');
