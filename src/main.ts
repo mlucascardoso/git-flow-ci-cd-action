@@ -6,7 +6,12 @@ const main = async () => {
     // const repository = core.getInput('repository')
     const client = getOctokit(token);
     info(`context -> ${context}`);
-    info(`client -> ${client.git.getRef}`);
+    const ref = client.git.getRef({
+        ref: context.ref,
+        owner: context.actor,
+        repo: context.repo.repo,
+    });
+    info(`ref -> ${ref}`);
 
     // await deleteBranch(client);
 };
