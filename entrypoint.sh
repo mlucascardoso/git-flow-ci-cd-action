@@ -29,17 +29,17 @@ echo ${remote_repo}
 
 # Feature finish
 if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
-    git checkout ${INPUT_DEVELOPMENT_BRANCH}
+    # git checkout ${INPUT_DEVELOPMENT_BRANCH}
     # git merge --no-ff "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
-    git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
+    # git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
     # git push --delete "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
-    git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH}
+    # git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH}
     #git branch - $current_branch
     # https://github.com/mlucascardoso/git-flow-ci-cd-action
     # git push https://<YOUR-PERSONAL-ACCESS-TOKEN>@github.com/<User-Name>/<Repo-Name>.git
     # git push --delete origin $current_branch
     # git push origin $dev_branch
-
+    echo "feature"
 elif [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_BUGFIX_BRANCH_PREFIX*}" ]] ;then
     echo "bugfix"
 elif [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_RELEASE_BRANCH_PREFIX*}" ]] ;then
