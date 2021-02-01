@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Local test with act
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Extract current branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -25,7 +25,7 @@ jobs:
           # email: clucasmedeiros@gmail.com
           # name: Lucas M Cardoso
           # username: mlucascardoso
-          github_token: ${{ secrets.AUTH_PASS }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
           development_branch: 'development'

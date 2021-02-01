@@ -1,0 +1,44 @@
+{
+  "name": "git-flow-ci-cd-action",
+  "version": "1.0.0",
+  "description": "Github action to handle git flow",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "npm-run-all build:tsc build:ncc",
+    "build:tsc": "tsc",
+    "build:ncc": "ncc build",
+    "pre-push": "node ./scripts/pre-push.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlucascardoso/git-flow-ci-cd-action.git"
+  },
+  "keywords": [
+      "git-flow",
+      "merge",
+      "publish",
+      "finish",
+      "release"
+  ],
+  "author": "Lucas M Cardoso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mlucascardoso/git-flow-ci-cd-action/issues"
+  },
+  "homepage": "https://github.com/mlucascardoso/git-flow-ci-cd-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "@vercel/ncc": "^0.27.0",
+    "eslint": "^7.19.0",
+    "eslint-config-google": "^0.14.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.1.3"
+  }
+}

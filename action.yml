@@ -47,7 +47,7 @@ inputs:
     description: 'The tag_prefix token'
     required: true
 runs:
-  # using: 'node12'
-  # main: 'entrypoint.js'
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node12'
+  main: 'dist/index.js'
+  # using: 'docker'
+  # image: 'Dockerfile'
