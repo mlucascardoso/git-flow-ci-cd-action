@@ -6,7 +6,7 @@ const main = async () => {
     // const repository = core.getInput('repository')
     const client = getOctokit(token);
     info(`context -> ${context}`);
-    const ref = client.git.getRef({
+    const ref = await client.git.getRef({
         ref: context.ref,
         owner: context.actor,
         repo: context.repo.repo,
