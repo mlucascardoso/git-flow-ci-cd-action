@@ -24,7 +24,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     // const repository = core.getInput('repository')
     const client = github_1.getOctokit(token);
     core_1.info(`context -> ${github_1.context}`);
-    const ref = client.git.getRef({
+    const ref = yield client.git.getRef({
         ref: github_1.context.ref,
         owner: github_1.context.actor,
         repo: github_1.context.repo.repo,
