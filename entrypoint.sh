@@ -14,10 +14,6 @@ set -e
 # git config credential.password "$username"
 remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
-git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH} --follow-tags;
-
-
-
 # remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 # echo ${remote_repo}
 # echo ${INPUT_GITHUB_TOKEN}
@@ -35,6 +31,7 @@ git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH} --follow-tags;
 
 # Feature finish
 if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
+    git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH} --follow-tags;
     # git checkout ${INPUT_DEVELOPMENT_BRANCH}
     # git merge --no-ff "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
     # git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
