@@ -13,7 +13,7 @@ set -e
 # git config credential.username "$username"
 # git config credential.password "$username"
 
-remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
+remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 echo ${remote_repo}
 echo ${INPUT_GITHUB_TOKEN}
 # git push "${remote_repo}" HEAD:${INPUT_BRANCH} --follow-tags $_FORCE_OPTION $_TAGS;
