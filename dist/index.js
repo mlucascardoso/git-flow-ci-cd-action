@@ -19,27 +19,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(186);
 const github_1 = __nccwpck_require__(438);
+const token = core_1.getInput('github_token');
+const client = github_1.getOctokit(token);
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const token = core_1.getInput('github_token', { required: true });
-    // const repository = core.getInput('repository')
-    const client = github_1.getOctokit(token);
-    core_1.info(`context -> ${github_1.context}`);
-    const ref = yield client.git.getRef({
-        ref: github_1.context.ref,
+    const branches = getBranches();
+    const gitFlowPrefixes = getPrefixes();
+    if (branches.current.includes(gitFlowPrefixes.feature)) {
+        yield handleFeatureFinish(branches);
+    }
+});
+const getBranches = () => {
+    return {
+        current: core_1.getInput('current_branch'),
+        main: core_1.getInput('master_branch'),
+        development: core_1.getInput('development_branch'),
+    };
+};
+const handleFeatureFinish = (branches) => __awaiter(void 0, void 0, void 0, function* () {
+    yield merge(branches.current, branches.development);
+    yield deleteBranch(branches.current);
+});
+const getPrefixes = () => {
+    return {
+        bugfix: core_1.getInput('bugfix_branch_prefix'),
+        feature: core_1.getInput('feature_branch_prefix'),
+        hotfix: core_1.getInput('hotfix_branch_prefix'),
+        release: core_1.getInput('release_branch_prefix'),
+        support: core_1.getInput('support_branch_prefix'),
+        tag: core_1.getInput('tag_prefix'),
+    };
+};
+const merge = (currentBranch, toBranch) => __awaiter(void 0, void 0, void 0, function* () {
+    core_1.info(`merge branch "${currentBranch}" to branch "${toBranch}"`);
+    const response = yield client.repos.merge(Object.assign(Object.assign({}, github_1.context.repo), { base: toBranch, head: currentBranch }));
+    const sha = response.data.sha;
+    core_1.info(`sha ${sha}`);
+    return sha;
+});
+const deleteBranch = (currentBranch) => __awaiter(void 0, void 0, void 0, function* () {
+    yield client.git.deleteRef({
         owner: github_1.context.actor,
         repo: github_1.context.repo.repo,
+        ref: `heads/${currentBranch}`,
     });
-    core_1.info(`ref -> ${ref}`);
-    // await deleteBranch(client);
 });
-// const deleteBranch = async (client: any) => {
-//     // const currentBranch = getInput('current_branch');
-//     // const branchToDelete = await client.refs.get({
-//     //     ...context.repo,
-//     //     pull_number: currentBranch,
-//     // });
-//     console.log('branchToDelete->', client.refs);
-// };
 main()
     .catch((err) => {
     console.error(err);
