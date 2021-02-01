@@ -12,10 +12,15 @@ set -e
 # git config user.password "$password"
 # git config credential.username "$username"
 # git config credential.password "$username"
-
 remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-echo ${remote_repo}
-echo ${INPUT_GITHUB_TOKEN}
+
+git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH} --follow-tags;
+
+
+
+# remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+# echo ${remote_repo}
+# echo ${INPUT_GITHUB_TOKEN}
 # git push "${remote_repo}" HEAD:${INPUT_BRANCH} --follow-tags $_FORCE_OPTION $_TAGS;
 
 # current_branch=$INPUT_CURRENT_BRANCH
@@ -30,11 +35,11 @@ echo ${INPUT_GITHUB_TOKEN}
 
 # Feature finish
 if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
-    git checkout ${INPUT_DEVELOPMENT_BRANCH}
+    # git checkout ${INPUT_DEVELOPMENT_BRANCH}
     # git merge --no-ff "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
-    git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
+    # git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
     # git push --delete "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
-    git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH}
+    # git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH}
     #git branch - $current_branch
     # https://github.com/mlucascardoso/git-flow-ci-cd-action
     # git push https://<YOUR-PERSONAL-ACCESS-TOKEN>@github.com/<User-Name>/<Repo-Name>.git
