@@ -6,8 +6,9 @@
   "scripts": {
     "build": "npm-run-all build:tsc build:ncc",
     "build:tsc": "tsc",
-    "build:ncc": "ncc build"
-  },
+    "build:ncc": "ncc build",
+    "pre-push": "node ./scripts/pre-push.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mlucascardoso/git-flow-ci-cd-action.git"
