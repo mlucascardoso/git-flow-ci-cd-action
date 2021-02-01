@@ -14,7 +14,7 @@ if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
     curl \
         -X DELETE \
         -H "Accept: application/vnd.github.v3+json; Authorization: Bearer ${INPUT_GITHUB_TOKEN}" \
-        https://api.github.com/repos/mlucascardoso/git-flow-ci-cd-action/git/refs/heads/feature/test-feature;
+        https://api.github.com/repos/mlucascardoso/git-flow-ci-cd-action/git/refs/refs/heads/feature/test-feature;
         # https://api.github.com/repos/${GITHUB_ACTOR}/${GITHUB_REPOSITORY}/git/refs/${INPUT_CURRENT_BRANCH};
     
     echo https://api.github.com/repos/${GITHUB_REPOSITORY}/git/refs/${INPUT_CURRENT_BRANCH}
