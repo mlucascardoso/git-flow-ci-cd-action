@@ -5,19 +5,21 @@ const main = async () => {
     const token = getInput('github_token', { required: true });
     // const repository = core.getInput('repository')
     const client = getOctokit(token);
-    await deleteBranch(client);
+    console.log(client);
+
+    // await deleteBranch(client);
 };
 
-const deleteBranch = async (client: any) => {
-    // const currentBranch = getInput('current_branch');
+// const deleteBranch = async (client: any) => {
+//     // const currentBranch = getInput('current_branch');
 
-    // const branchToDelete = await client.refs.get({
-    //     ...context.repo,
-    //     pull_number: currentBranch,
-    // });
+//     // const branchToDelete = await client.refs.get({
+//     //     ...context.repo,
+//     //     pull_number: currentBranch,
+//     // });
 
-    console.log('branchToDelete->', client.refs);
-};
+//     console.log('branchToDelete->', client.refs);
+// };
 
 main()
     .catch((err) => {
