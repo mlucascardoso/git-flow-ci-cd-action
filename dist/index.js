@@ -31,7 +31,7 @@ const deleteBranch = (client) => __awaiter(void 0, void 0, void 0, function* () 
     //     ...context.repo,
     //     pull_number: currentBranch,
     // });
-    console.log('branchToDelete->', client.refs);
+    console.log('branchToDelete->', client);
 });
 main()
     .catch((err) => {
