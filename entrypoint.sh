@@ -31,8 +31,10 @@ remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${GITHUB_R
 
 # Feature finish
 if [[ -z "${INPUT_CURRENT_BRANCH##*$INPUT_FEATURE_BRANCH_PREFIX*}" ]] ;then
+    git checkout ${INPUT_DEVELOPMENT_BRANCH}
+    git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
     git push "${remote_repo}" HEAD:${INPUT_DEVELOPMENT_BRANCH} --follow-tags;
-    # git checkout ${INPUT_DEVELOPMENT_BRANCH}
+    
     # git merge --no-ff "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
     # git merge --no-ff origin/${INPUT_CURRENT_BRANCH}
     # git push --delete "${remote_repo}" HEAD:${INPUT_CURRENT_BRANCH}
