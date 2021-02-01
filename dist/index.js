@@ -23,16 +23,17 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const token = core_1.getInput('github_token', { required: true });
     // const repository = core.getInput('repository')
     const client = github_1.getOctokit(token);
-    yield deleteBranch(client);
+    console.log(client);
+    // await deleteBranch(client);
 });
-const deleteBranch = (client) => __awaiter(void 0, void 0, void 0, function* () {
-    // const currentBranch = getInput('current_branch');
-    // const branchToDelete = await client.refs.get({
-    //     ...context.repo,
-    //     pull_number: currentBranch,
-    // });
-    console.log('branchToDelete->', client.refs);
-});
+// const deleteBranch = async (client: any) => {
+//     // const currentBranch = getInput('current_branch');
+//     // const branchToDelete = await client.refs.get({
+//     //     ...context.repo,
+//     //     pull_number: currentBranch,
+//     // });
+//     console.log('branchToDelete->', client.refs);
+// };
 main()
     .catch((err) => {
     console.error(err);
