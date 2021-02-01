@@ -1,31 +1,68 @@
 import { getInput, info } from '@actions/core';
 import { context, getOctokit } from '@actions/github';
 
-const main = async () => {
-    const token = getInput('github_token', { required: true });
-    // const repository = core.getInput('repository')
-    const client = getOctokit(token);
-    info(`context -> ${context}`);
-    const ref = await client.git.getRef({
-        ref: context.ref,
-        owner: context.actor,
-        repo: context.repo.repo,
-    });
-    info(`ref -> ${ref}`);
+const token = getInput('github_token');
+const client = getOctokit(token);
 
-    // await deleteBranch(client);
+interface Branches {
+    current: string;
+    main: string;
+    development: string;
+}
+
+const main = async () => {
+    const branches = getBranches();
+    const gitFlowPrefixes = getPrefixes();
+    if (branches.current.includes(gitFlowPrefixes.feature)) {
+        await handleFeatureFinish(branches);
+    }
 };
 
-// const deleteBranch = async (client: any) => {
-//     // const currentBranch = getInput('current_branch');
+const getBranches = (): Branches => {
+    return {
+        current: getInput('current_branch'),
+        main: getInput('master_branch'),
+        development: getInput('development_branch'),
+    };
+};
 
-//     // const branchToDelete = await client.refs.get({
-//     //     ...context.repo,
-//     //     pull_number: currentBranch,
-//     // });
+const handleFeatureFinish = async (branches: Branches) => {
+    await merge(branches.current, branches.development);
+    await deleteBranch(branches.current);
+};
 
-//     console.log('branchToDelete->', client.refs);
-// };
+const getPrefixes = () => {
+    return {
+        bugfix: getInput('bugfix_branch_prefix'),
+        feature: getInput('feature_branch_prefix'),
+        hotfix: getInput('hotfix_branch_prefix'),
+        release: getInput('release_branch_prefix'),
+        support: getInput('support_branch_prefix'),
+        tag: getInput('tag_prefix'),
+    };
+};
+
+const merge = async (currentBranch: string, toBranch: string): Promise<any> => {
+    info(`merge branch "${currentBranch}" to branch "${toBranch}"`);
+    const response = await client.repos.merge({
+        ...context.repo,
+        base: toBranch,
+        head: currentBranch,
+    });
+
+    const sha = response.data.sha;
+    info(`sha ${sha}`);
+
+    return sha;
+};
+
+const deleteBranch = async (currentBranch: string): Promise<void> => {
+    await client.git.deleteRef({
+        owner: context.actor,
+        repo: context.repo.repo,
+        ref: `heads/${currentBranch}`,
+    });
+};
 
 main()
     .catch((err) => {
