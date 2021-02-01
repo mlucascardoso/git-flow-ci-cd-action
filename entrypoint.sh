@@ -15,6 +15,7 @@ set -e
 
 remote_repo="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
 echo ${remote_repo}
+echo ${INPUT_GITHUB_TOKEN}
 # git push "${remote_repo}" HEAD:${INPUT_BRANCH} --follow-tags $_FORCE_OPTION $_TAGS;
 
 # current_branch=$INPUT_CURRENT_BRANCH
