@@ -7,6 +7,15 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+        "@factories": ["./src/factories/index.ts"],
+        "@factories/*": ["./src/factories/*"],
+        "@protocols": ["./src/protocols/index.ts"],
+        "@protocols/*": ["./src/protocols/*"],
+        "@services": ["./src/services/index.ts"],
+        "@services/*": ["./src/services/*"]
+    }
   },
   "exclude": ["node_modules", "**/*.test.ts"]
 }
