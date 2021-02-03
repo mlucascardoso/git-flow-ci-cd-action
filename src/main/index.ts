@@ -5,7 +5,6 @@ const main = async () => {
     await gitFlow.handle();
 };
 
-
 main()
     .catch((err) => {
         console.error(err);
