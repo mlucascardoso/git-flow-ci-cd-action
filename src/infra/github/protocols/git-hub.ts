@@ -8,4 +8,5 @@ export interface GitHub {
     getPrefixes(): GitFlowBranchesPrefixes;
     merge(fromBranch: string, toBranch: string): Promise<string>;
     delete(currentBranch: string): Promise<void>;
+    createTag(tag: string, sha: string): Promise<void>;
 }
