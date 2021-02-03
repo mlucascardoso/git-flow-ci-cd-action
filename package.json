@@ -2,23 +2,23 @@
   "name": "git-flow-ci-cd-action",
   "version": "1.0.0",
   "description": "Github action to handle git flow",
-  "main": "lib/main.js",
+  "main": "lib/main/index.js",
   "scripts": {
     "build": "npm-run-all build:tsc build:ncc",
     "build:tsc": "tsc",
     "build:ncc": "ncc build",
     "pre-push": "node ./scripts/pre-push.js"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mlucascardoso/git-flow-ci-cd-action.git"
   },
   "keywords": [
-      "git-flow",
-      "merge",
-      "publish",
-      "finish",
-      "release"
+    "git-flow",
+    "merge",
+    "publish",
+    "finish",
+    "release"
   ],
   "author": "Lucas M Cardoso",
   "license": "MIT",

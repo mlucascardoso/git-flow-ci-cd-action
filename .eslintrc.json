@@ -15,6 +15,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "arrow-parens": "off",
         "indent": [
             "error",
             4,
@@ -22,6 +23,8 @@
                 "SwitchCase": 1
             }
         ],
-        "object-curly-spacing": "off"
+        "max-len": ["error", { "code": 100 }],
+        "object-curly-spacing": "off",
+        "require-jsdoc": "off"
     }
 }
