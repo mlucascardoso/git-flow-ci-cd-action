@@ -1,7 +1,7 @@
 import { GitFlowHandler } from '@/modules/git-flow/protocols';
 import { GitHub } from '@/infra/github/protocols';
 
-export class Feature implements GitFlowHandler {
+export class BugFix implements GitFlowHandler {
     private readonly github: GitHub;
 
     constructor(github: GitHub) {
