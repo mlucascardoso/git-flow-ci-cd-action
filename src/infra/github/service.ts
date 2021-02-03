@@ -72,4 +72,12 @@ export class GitHubService implements GitHub {
             ref: `heads/${currentBranch}`,
         });
     }
+
+    public async createTag(tag: string, sha: string): Promise<void> {
+        const instance = this.getOctokitInstance();
+        await instance.git.createRef({
+            ...this.client.context.repo,
+            ref: `refs/tags/${tag}`,
+        });
+    }
 }

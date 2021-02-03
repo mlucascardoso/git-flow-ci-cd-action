@@ -5913,6 +5913,12 @@ class GitHubService {
             });
         });
     }
+    createTag(tag, sha) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const instance = this.getOctokitInstance();
+            yield instance.git.createRef(Object.assign(Object.assign({}, this.client.context.repo), { ref: `refs/tags/${tag}` }));
+        });
+    }
 }
 exports.GitHubService = GitHubService;
 
