@@ -7,7 +7,9 @@ export class GitFlowService {
         this.handler = handler;
     }
 
-    public async handle(): Promise<string> {
-        return this.handler.handle();
+    public async handle(): Promise<string | undefined> {
+        if (this.handler) {
+            return this.handler.handle();
+        }
     }
 }
