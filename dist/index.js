@@ -5916,40 +5916,32 @@ class GitHubService {
     }
     merge(fromBranch, toBranch) {
         return __awaiter(this, void 0, void 0, function* () {
-            // const instance = this.getOctokitInstance();
-            // const response = await instance.repos.merge({
-            //     ...this.client.context.repo,
-            //     base: toBranch,
-            //     head: fromBranch,
-            // });
-            // const sha = response.data.sha;
-            // this.core.info(`sha ${sha}`);
-            // return sha;
-            return '';
+            const instance = this.getOctokitInstance();
+            const response = yield instance.repos.merge(Object.assign(Object.assign({}, this.client.context.repo), { base: toBranch, head: fromBranch }));
+            const sha = response.data.sha;
+            this.core.info(`sha ${sha}`);
+            return sha;
         });
     }
     delete(currentBranch) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            // const instance = this.getOctokitInstance();
-            // const payload = this.client.context.payload;
-            // const owner = payload.organization?.login ?
-            //     payload.organization.login :
-            //     this.client.context.actor;
-            // await instance.git.deleteRef({
-            //     owner,
-            //     repo: this.client.context.repo.repo,
-            //     ref: `heads/${currentBranch}`,
-            // });
+            const instance = this.getOctokitInstance();
+            const payload = this.client.context.payload;
+            const owner = ((_a = payload.organization) === null || _a === void 0 ? void 0 : _a.login) ?
+                payload.organization.login :
+                this.client.context.actor;
+            yield instance.git.deleteRef({
+                owner,
+                repo: this.client.context.repo.repo,
+                ref: `heads/${currentBranch}`,
+            });
         });
     }
     createTag(tag, sha) {
         return __awaiter(this, void 0, void 0, function* () {
-            // const instance = this.getOctokitInstance();
-            // await instance.git.createRef({
-            //     ...this.client.context.repo,
-            //     ref: `refs/tags/${tag}`,
-            //     sha,
-            // });
+            const instance = this.getOctokitInstance();
+            yield instance.git.createRef(Object.assign(Object.assign({}, this.client.context.repo), { ref: `refs/tags/${tag}`, sha }));
         });
     }
 }
@@ -6003,7 +5995,6 @@ class GitFlowFactory {
                     handler = gitFlowHandler;
                 }
             }
-            console.log(handler);
             return handler;
         });
     }
