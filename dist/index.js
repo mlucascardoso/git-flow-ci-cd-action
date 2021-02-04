@@ -5920,7 +5920,6 @@ class GitHubService {
             const instance = this.getOctokitInstance();
             const response = yield instance.repos.merge(Object.assign(Object.assign({}, this.client.context.repo), { base: toBranch, head: fromBranch }));
             this.core.info(`TO BRANCH ------> ${toBranch}`);
-            this.core.info(`response.data ------> ${JSON.stringify(response)}`);
             const sha = (_a = response.data) === null || _a === void 0 ? void 0 : _a.sha;
             this.core.info(`sha ${sha}`);
             return sha;
