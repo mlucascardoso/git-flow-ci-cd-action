@@ -59,8 +59,6 @@ export class GitHubService implements GitHub {
             pull_number: pull,
         });
 
-        this.core.info(`PULL ------------> ${response.data.head.ref}`);
-
         return response.data.head.ref;
     }
 
@@ -90,12 +88,19 @@ export class GitHubService implements GitHub {
     }
 
     public async delete(currentBranch: string): Promise<void> {
-        const instance = this.getOctokitInstance();
-        await instance.git.deleteRef({
-            owner: this.client.context.actor,
-            repo: this.client.context.repo.repo,
-            ref: `heads/${currentBranch}`,
-        });
+        // const instance = this.getOctokitInstance();
+        // console.log(this.client.context.);
+        this.core.info(`CURRENT BRANCH -> ${currentBranch}`);
+        this.core.info(`
+            CLIENT CONTEXT -----------------------------> 
+            ${JSON.stringify(this.client.context)}`,
+        );
+
+        // await instance.git.deleteRef({
+        //     owner: this.client.context.actor,
+        //     repo: this.client.context.repo.repo,
+        //     ref: `heads/${currentBranch}`,
+        // });
     }
 
     public async createTag(tag: string, sha: string): Promise<void> {
