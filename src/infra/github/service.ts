@@ -54,11 +54,12 @@ export class GitHubService implements GitHub {
 
     private async getPullRequestHeadBranch(pull: string): Promise<string> {
         const instance = this.getOctokitInstance();
-        const owner = this.client.context.actor;
-        const repo = this.client.context.repo.repo;
-        const response = await instance.request(`GET /repos/${owner}/${repo}/pulls/${pull}`);
+        const response = await instance.pulls.get({
+            ...this.client.context.repo,
+            pull_number: pull,
+        });
 
-        return response.head.ref;
+        return response.data.head.ref;
     }
 
     public getPrefixes(): GitFlowBranchesPrefixes {
