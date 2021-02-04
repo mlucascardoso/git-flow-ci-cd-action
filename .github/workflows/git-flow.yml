@@ -24,5 +24,4 @@ jobs:
           bugfix_branch_prefix: 'bugfix/'
           release_branch_prefix: 'release/'
           hotfix_branch_prefix: 'hotfix/'
-          support_branch_prefix: 'support/'
           tag_prefix: 'v'
