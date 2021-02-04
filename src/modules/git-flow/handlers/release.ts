@@ -39,6 +39,7 @@ export class Release implements GitFlowHandler {
         );
 
         this.github.getCore().info(`SHA -------> ${params.sha}`);
+        this.github.getCore().info(`TAG -------> ${tag}`);
 
         await this.github.createTag(tag, params.sha);
     }
