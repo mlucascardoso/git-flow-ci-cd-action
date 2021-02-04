@@ -6063,12 +6063,23 @@ class HotFix {
         return __awaiter(this, void 0, void 0, function* () {
             const branches = this.github.getBranches();
             const prefixes = this.github.getPrefixes();
-            const tagName = this.getTagName(branches.current, prefixes.hotfix, prefixes.tag);
-            const sha = yield this.github.merge(branches.current, branches.main);
-            yield this.github.merge(branches.current, branches.development);
+            const sha = yield this.merge(branches);
             yield this.github.delete(branches.current);
-            yield this.github.createTag(tagName, sha);
+            yield this.createTag({ branches, prefixes, sha });
             return sha;
+        });
+    }
+    merge(branches) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.github.merge(branches.current, branches.development);
+            const sha = yield this.github.merge(branches.current, branches.main);
+            return sha;
+        });
+    }
+    createTag(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tag = this.getTagName(params.branches.current, params.prefixes.hotfix, params.prefixes.tag);
+            yield this.github.createTag(tag, params.sha);
         });
     }
     getTagName(currentBranch, hotfixPrefix, tagPrefix) {
