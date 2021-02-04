@@ -5947,6 +5947,7 @@ class GitFlowFactory {
             new handlers_1.BugFix(github),
             new handlers_1.Feature(github),
             new handlers_1.HotFix(github),
+            new handlers_1.Release(github),
         ];
     }
     static getHandler() {
@@ -6114,6 +6115,66 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 __exportStar(__nccwpck_require__(3700), exports);
 __exportStar(__nccwpck_require__(4426), exports);
 __exportStar(__nccwpck_require__(2650), exports);
+__exportStar(__nccwpck_require__(1266), exports);
+
+
+/***/ }),
+
+/***/ 1266:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Release = void 0;
+class Release {
+    constructor(github) {
+        this.github = github;
+    }
+    test() {
+        const branches = this.github.getBranches();
+        const prefixes = this.github.getPrefixes();
+        return branches.current.includes(prefixes.release);
+    }
+    handle() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = this.github.getBranches();
+            const prefixes = this.github.getPrefixes();
+            const sha = yield this.merge(branches);
+            yield this.github.delete(branches.current);
+            yield this.createTag({ branches, prefixes, sha });
+            return sha;
+        });
+    }
+    merge(branches) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.github.merge(branches.current, branches.development);
+            const sha = yield this.github.merge(branches.current, branches.main);
+            return sha;
+        });
+    }
+    createTag(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tag = this.getTagName(params.branches.current, params.prefixes.release, params.prefixes.tag);
+            this.github.getCore().info(`SHA -------> ${params.sha}`);
+            yield this.github.createTag(tag, params.sha);
+        });
+    }
+    getTagName(currentBranch, releasePrefix, tagPrefix) {
+        const branchName = currentBranch.split(releasePrefix).join('');
+        return `${tagPrefix}${branchName}`;
+    }
+}
+exports.Release = Release;
 
 
 /***/ }),
