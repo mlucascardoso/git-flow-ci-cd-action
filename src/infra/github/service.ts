@@ -88,19 +88,18 @@ export class GitHubService implements GitHub {
     }
 
     public async delete(currentBranch: string): Promise<void> {
-        // const instance = this.getOctokitInstance();
-        // console.log(this.client.context.);
-        this.core.info(`CURRENT BRANCH -> ${currentBranch}`);
-        this.core.info(`
-            CLIENT CONTEXT -----------------------------> 
-            ${JSON.stringify(this.client.context)}`,
-        );
+        const instance = this.getOctokitInstance();
 
-        // await instance.git.deleteRef({
-        //     owner: this.client.context.actor,
-        //     repo: this.client.context.repo.repo,
-        //     ref: `heads/${currentBranch}`,
-        // });
+        const payload = this.client.context.payload;
+        const owner = payload.organization?.login ?
+            payload.organization.login :
+            this.client.context.actor;
+
+        await instance.git.deleteRef({
+            owner,
+            repo: this.client.context.repo.repo,
+            ref: `heads/${currentBranch}`,
+        });
     }
 
     public async createTag(tag: string, sha: string): Promise<void> {

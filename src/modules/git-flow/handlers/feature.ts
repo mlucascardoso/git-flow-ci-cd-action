@@ -16,10 +16,9 @@ export class Feature implements GitFlowHandler {
 
     async handle(): Promise<string> {
         const branches = await this.github.getBranches();
-        // const sha = await this.github.merge(branches.current, branches.development);
+        const sha = await this.github.merge(branches.current, branches.development);
         await this.github.delete(branches.current);
 
-        // return sha;
-        return '';
+        return sha;
     }
 }
