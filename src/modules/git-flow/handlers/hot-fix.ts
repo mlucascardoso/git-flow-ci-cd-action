@@ -1,6 +1,5 @@
-import { GitFlowHandler } from '@/modules/git-flow/protocols';
+import { CreateTagParams, GitFlowHandler } from '@/modules/git-flow/protocols';
 import { Branches, GitHub } from '@/infra/github/protocols';
-import { CreateTagParams } from '../protocols/create-tag-params';
 
 export class HotFix implements GitFlowHandler {
     private readonly github: GitHub;
