@@ -59,6 +59,8 @@ export class GitHubService implements GitHub {
             pull_number: pull,
         });
 
+        this.core.info(`PULL ------------> ${response.data.head.ref}`);
+
         return response.data.head.ref;
     }
 
