@@ -5986,7 +5986,7 @@ class GitFlowFactory {
     static getHandler() {
         let handler = undefined;
         for (const key in this.handlers) {
-            console.log(this.handlers[key]);
+            console.log(this.handlers[key].test(), key);
             if (this.handlers[key].test()) {
                 handler = this.handlers[key];
             }
