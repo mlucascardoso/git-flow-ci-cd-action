@@ -19,7 +19,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const factory_1 = __nccwpck_require__(2801);
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const gitFlow = factory_1.GitFlowFactory.assemble();
+    const gitFlow = yield factory_1.GitFlowFactory.assemble();
     yield gitFlow.handle();
 });
 main()
@@ -5951,10 +5951,19 @@ exports.GitHubService = GitHubService;
 /***/ }),
 
 /***/ 2801:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitFlowFactory = void 0;
 const service_1 = __nccwpck_require__(3749);
@@ -5962,10 +5971,12 @@ const handlers_1 = __nccwpck_require__(7467);
 const factory_1 = __nccwpck_require__(6930);
 class GitFlowFactory {
     static assemble() {
-        const github = factory_1.GitHubFactory.assemble();
-        this.setHandlers(github);
-        const handler = this.getHandler();
-        return new service_1.GitFlowService(handler);
+        return __awaiter(this, void 0, void 0, function* () {
+            const github = factory_1.GitHubFactory.assemble();
+            this.setHandlers(github);
+            const handler = yield this.getHandler();
+            return new service_1.GitFlowService(handler);
+        });
     }
     static setHandlers(github) {
         this.handlers = [
@@ -5976,13 +5987,16 @@ class GitFlowFactory {
         ];
     }
     static getHandler() {
-        let handler = undefined;
-        for (const key in this.handlers) {
-            if (this.handlers[key].test()) {
-                handler = this.handlers[key];
+        return __awaiter(this, void 0, void 0, function* () {
+            let handler = undefined;
+            for (const gitFlowHandler of this.handlers) {
+                const isValid = yield gitFlowHandler.test();
+                if (isValid) {
+                    handler = gitFlowHandler;
+                }
             }
-        }
-        return handler;
+            return handler;
+        });
     }
 }
 exports.GitFlowFactory = GitFlowFactory;

@@ -7,10 +7,10 @@ import { GitHub } from '@/infra/github/protocols/git-hub';
 export class GitFlowFactory {
     private static handlers: GitFlowHandler[];
 
-    public static assemble() {
+    public static async assemble() {
         const github = GitHubFactory.assemble();
         this.setHandlers(github);
-        const handler = this.getHandler();
+        const handler = await this.getHandler();
         return new GitFlowService(handler);
     }
 
@@ -23,12 +23,13 @@ export class GitFlowFactory {
         ];
     }
 
-    private static getHandler(): GitFlowHandler {
+    private static async getHandler(): Promise<GitFlowHandler> {
         let handler = undefined;
 
-        for (const key in this.handlers) {
-            if (this.handlers[key].test()) {
-                handler = this.handlers[key];
+        for (const gitFlowHandler of this.handlers) {
+            const isValid = await gitFlowHandler.test();
+            if (isValid) {
+                handler = gitFlowHandler;
             }
         }
 

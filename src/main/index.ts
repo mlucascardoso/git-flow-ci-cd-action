@@ -1,7 +1,7 @@
 import { GitFlowFactory } from '@/modules/git-flow/factory';
 
 const main = async () => {
-    const gitFlow = GitFlowFactory.assemble();
+    const gitFlow = await GitFlowFactory.assemble();
     await gitFlow.handle();
 };
 
