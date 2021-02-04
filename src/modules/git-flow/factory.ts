@@ -23,16 +23,17 @@ export class GitFlowFactory {
         ];
     }
 
-    private static getHandler(): GitFlowHandler {
+    private static async getHandler(): Promise<GitFlowHandler> {
         let handler = undefined;
 
-        for (const key in this.handlers) {
-            console.log(this.handlers[key].test(), key);
-
-            if (this.handlers[key].test()) {
-                handler = this.handlers[key];
+        for (const gitFlowHandler of this.handlers) {
+            const isValid = gitFlowHandler.test();
+            if (isValid) {
+                handler = gitFlowHandler;
             }
         }
+
+        console.log(handler);
 
         return handler as GitFlowHandler;
     }
