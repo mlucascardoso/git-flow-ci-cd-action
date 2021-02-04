@@ -24,6 +24,14 @@ export class GitFlowFactory {
     }
 
     private static getHandler(): GitFlowHandler {
-        return this.handlers.find(async handler => await handler.test()) as GitFlowHandler;
+        let handler = undefined;
+
+        for (const key in this.handlers) {
+            if (this.handlers[key].test()) {
+                handler = this.handlers[key];
+            }
+        }
+
+        return handler as GitFlowHandler;
     }
 }

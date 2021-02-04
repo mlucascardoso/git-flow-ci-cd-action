@@ -15,6 +15,7 @@ export class Release implements GitFlowHandler {
     }
 
     public async handle(): Promise<string> {
+        this.github.getCore().info('RELEASE HANDLER');
         const branches = await this.github.getBranches();
         const prefixes = this.github.getPrefixes();
         const sha = await this.merge(branches);
@@ -39,6 +40,7 @@ export class Release implements GitFlowHandler {
         );
 
         this.github.getCore().info(`SHA -------> ${params.sha}`);
+        this.github.getCore().info(`TAG -------> ${tag}`);
 
         await this.github.createTag(tag, params.sha);
     }

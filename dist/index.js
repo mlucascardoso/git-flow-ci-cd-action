@@ -5951,19 +5951,10 @@ exports.GitHubService = GitHubService;
 /***/ }),
 
 /***/ 2801:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitFlowFactory = void 0;
 const service_1 = __nccwpck_require__(3749);
@@ -5985,7 +5976,13 @@ class GitFlowFactory {
         ];
     }
     static getHandler() {
-        return this.handlers.find((handler) => __awaiter(this, void 0, void 0, function* () { return yield handler.test(); }));
+        let handler = undefined;
+        for (const key in this.handlers) {
+            if (this.handlers[key].test()) {
+                handler = this.handlers[key];
+            }
+        }
+        return handler;
     }
 }
 exports.GitFlowFactory = GitFlowFactory;
@@ -6022,6 +6019,7 @@ class BugFix {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('BUGFIX HANDLER');
             const branches = yield this.github.getBranches();
             const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
@@ -6063,6 +6061,7 @@ class Feature {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('FEATURE HANDLER');
             const branches = yield this.github.getBranches();
             const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
@@ -6104,6 +6103,7 @@ class HotFix {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('HOTFIX HANDLER');
             const branches = yield this.github.getBranches();
             const prefixes = this.github.getPrefixes();
             const sha = yield this.merge(branches);
@@ -6189,6 +6189,7 @@ class Release {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('RELEASE HANDLER');
             const branches = yield this.github.getBranches();
             const prefixes = this.github.getPrefixes();
             const sha = yield this.merge(branches);
@@ -6208,6 +6209,7 @@ class Release {
         return __awaiter(this, void 0, void 0, function* () {
             const tag = this.getTagName(params.branches.current, params.prefixes.release, params.prefixes.tag);
             this.github.getCore().info(`SHA -------> ${params.sha}`);
+            this.github.getCore().info(`TAG -------> ${tag}`);
             yield this.github.createTag(tag, params.sha);
         });
     }

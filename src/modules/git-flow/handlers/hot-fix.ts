@@ -15,6 +15,7 @@ export class HotFix implements GitFlowHandler {
     }
 
     public async handle(): Promise<string> {
+        this.github.getCore().info('HOTFIX HANDLER');
         const branches = await this.github.getBranches();
         const prefixes = this.github.getPrefixes();
         const sha = await this.merge(branches);
