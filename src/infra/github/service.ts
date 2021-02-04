@@ -81,6 +81,9 @@ export class GitHubService implements GitHub {
             head: fromBranch,
         });
 
+        this.core.info(`TO BRANCH ------> ${toBranch}`);
+        this.core.info(`response.data ------> ${response.data}`);
+
         const sha = response.data.sha;
         this.core.info(`sha ${sha}`);
 
