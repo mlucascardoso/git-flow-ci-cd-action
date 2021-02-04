@@ -33,8 +33,6 @@ export class GitFlowFactory {
             }
         }
 
-        console.log(handler);
-
         return handler as GitFlowHandler;
     }
 }
