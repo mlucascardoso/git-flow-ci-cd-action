@@ -5944,7 +5944,9 @@ class GitFlowFactory {
     }
     static setHandlers(github) {
         this.handlers = [
+            new handlers_1.BugFix(github),
             new handlers_1.Feature(github),
+            new handlers_1.HotFix(github),
         ];
     }
     static getHandler() {
