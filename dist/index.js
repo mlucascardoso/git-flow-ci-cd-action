@@ -5924,18 +5924,18 @@ class GitHubService {
         });
     }
     delete(currentBranch) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            // const instance = this.getOctokitInstance();
-            // console.log(this.client.context.);
-            this.core.info(`CURRENT BRANCH -> ${currentBranch}`);
-            this.core.info(`
-            CLIENT CONTEXT -----------------------------> 
-            ${JSON.stringify(this.client.context)}`);
-            // await instance.git.deleteRef({
-            //     owner: this.client.context.actor,
-            //     repo: this.client.context.repo.repo,
-            //     ref: `heads/${currentBranch}`,
-            // });
+            const instance = this.getOctokitInstance();
+            const payload = this.client.context.payload;
+            const owner = ((_a = payload.organization) === null || _a === void 0 ? void 0 : _a.login) ?
+                payload.organization.login :
+                this.client.context.actor;
+            yield instance.git.deleteRef({
+                owner,
+                repo: this.client.context.repo.repo,
+                ref: `heads/${currentBranch}`,
+            });
         });
     }
     createTag(tag, sha) {
@@ -6064,10 +6064,9 @@ class Feature {
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
             const branches = yield this.github.getBranches();
-            // const sha = await this.github.merge(branches.current, branches.development);
+            const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
-            // return sha;
-            return '';
+            return sha;
         });
     }
 }
