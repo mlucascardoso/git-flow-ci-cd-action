@@ -74,40 +74,41 @@ export class GitHubService implements GitHub {
     }
 
     public async merge(fromBranch: string, toBranch: string): Promise<string> {
-        const instance = this.getOctokitInstance();
-        const response = await instance.repos.merge({
-            ...this.client.context.repo,
-            base: toBranch,
-            head: fromBranch,
-        });
+        // const instance = this.getOctokitInstance();
+        // const response = await instance.repos.merge({
+        //     ...this.client.context.repo,
+        //     base: toBranch,
+        //     head: fromBranch,
+        // });
 
-        const sha = response.data.sha;
-        this.core.info(`sha ${sha}`);
+        // const sha = response.data.sha;
+        // this.core.info(`sha ${sha}`);
 
-        return sha;
+        // return sha;
+        return '';
     }
 
     public async delete(currentBranch: string): Promise<void> {
-        const instance = this.getOctokitInstance();
+        // const instance = this.getOctokitInstance();
 
-        const payload = this.client.context.payload;
-        const owner = payload.organization?.login ?
-            payload.organization.login :
-            this.client.context.actor;
+        // const payload = this.client.context.payload;
+        // const owner = payload.organization?.login ?
+        //     payload.organization.login :
+        //     this.client.context.actor;
 
-        await instance.git.deleteRef({
-            owner,
-            repo: this.client.context.repo.repo,
-            ref: `heads/${currentBranch}`,
-        });
+        // await instance.git.deleteRef({
+        //     owner,
+        //     repo: this.client.context.repo.repo,
+        //     ref: `heads/${currentBranch}`,
+        // });
     }
 
     public async createTag(tag: string, sha: string): Promise<void> {
-        const instance = this.getOctokitInstance();
-        await instance.git.createRef({
-            ...this.client.context.repo,
-            ref: `refs/tags/${tag}`,
-            sha,
-        });
+        // const instance = this.getOctokitInstance();
+        // await instance.git.createRef({
+        //     ...this.client.context.repo,
+        //     ref: `refs/tags/${tag}`,
+        //     sha,
+        // });
     }
 }
