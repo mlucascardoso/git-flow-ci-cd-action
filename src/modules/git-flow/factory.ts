@@ -1,6 +1,6 @@
 import { GitFlowHandler } from '@/modules/git-flow/protocols';
 import { GitFlowService } from '@/modules/git-flow/service';
-import { Feature } from '@/modules/git-flow/handlers';
+import { BugFix, Feature, HotFix } from '@/modules/git-flow/handlers';
 import { GitHubFactory } from '@/infra/github/factory';
 import { GitHub } from '@/infra/github/protocols/git-hub';
 
@@ -17,6 +17,8 @@ export class GitFlowFactory {
     private static setHandlers(github: GitHub): void {
         this.handlers = [
             new Feature(github),
+            new BugFix(github),
+            new HotFix(github),
         ];
     }
 
