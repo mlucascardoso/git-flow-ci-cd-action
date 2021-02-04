@@ -6208,6 +6208,7 @@ class Release {
         return __awaiter(this, void 0, void 0, function* () {
             const tag = this.getTagName(params.branches.current, params.prefixes.release, params.prefixes.tag);
             this.github.getCore().info(`SHA -------> ${params.sha}`);
+            this.github.getCore().info(`TAG -------> ${tag}`);
             yield this.github.createTag(tag, params.sha);
         });
     }
