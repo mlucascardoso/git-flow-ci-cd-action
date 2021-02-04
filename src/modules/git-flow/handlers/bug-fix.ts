@@ -15,6 +15,7 @@ export class BugFix implements GitFlowHandler {
     }
 
     async handle(): Promise<string> {
+        this.github.getCore().info('BUGFIX HANDLER');
         const branches = await this.github.getBranches();
         const sha = await this.github.merge(branches.current, branches.development);
         await this.github.delete(branches.current);

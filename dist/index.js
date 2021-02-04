@@ -6022,6 +6022,7 @@ class BugFix {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('BUGFIX HANDLER');
             const branches = yield this.github.getBranches();
             const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
@@ -6063,6 +6064,7 @@ class Feature {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('FEATURE HANDLER');
             const branches = yield this.github.getBranches();
             const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
@@ -6104,6 +6106,7 @@ class HotFix {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('HOTFIX HANDLER');
             const branches = yield this.github.getBranches();
             const prefixes = this.github.getPrefixes();
             const sha = yield this.merge(branches);
@@ -6189,6 +6192,7 @@ class Release {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.github.getCore().info('RELEASE HANDLER');
             const branches = yield this.github.getBranches();
             const prefixes = this.github.getPrefixes();
             const sha = yield this.merge(branches);
