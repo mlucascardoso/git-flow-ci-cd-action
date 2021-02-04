@@ -5901,6 +5901,7 @@ class GitHubService {
         return __awaiter(this, void 0, void 0, function* () {
             const instance = this.getOctokitInstance();
             const response = yield instance.pulls.get(Object.assign(Object.assign({}, this.client.context.repo), { pull_number: pull }));
+            this.core.info(`PULL ------------> ${response.data.head.ref}`);
             return response.data.head.ref;
         });
     }
