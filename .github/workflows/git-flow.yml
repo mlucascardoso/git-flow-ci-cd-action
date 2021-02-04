@@ -4,9 +4,9 @@ on:
   pull_request_review:
     branches: [main, development]
 jobs:
-  custom_test:
+  build:
     runs-on: ubuntu-latest
-    name: Local test with act
+    name: Run Git Flow
     steps:
       - uses: actions/checkout@v2
       - name: Extract current branch name

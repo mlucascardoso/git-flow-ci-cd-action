@@ -1,4 +1,4 @@
 export interface GitFlowHandler {
-    test(): boolean;
+    test(): Promise<boolean>;
     handle(): Promise<string>;
 }

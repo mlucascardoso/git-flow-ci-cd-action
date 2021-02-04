@@ -8,14 +8,14 @@ export class Release implements GitFlowHandler {
         this.github = github;
     }
 
-    test(): boolean {
-        const branches = this.github.getBranches();
+    async test(): Promise<boolean> {
+        const branches = await this.github.getBranches();
         const prefixes = this.github.getPrefixes();
         return branches.current.includes(prefixes.release);
     }
 
     public async handle(): Promise<string> {
-        const branches = this.github.getBranches();
+        const branches = await this.github.getBranches();
         const prefixes = this.github.getPrefixes();
         const sha = await this.merge(branches);
         await this.github.delete(branches.current);

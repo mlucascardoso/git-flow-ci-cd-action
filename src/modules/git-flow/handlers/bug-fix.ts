@@ -8,14 +8,14 @@ export class BugFix implements GitFlowHandler {
         this.github = github;
     }
 
-    test(): boolean {
-        const branches = this.github.getBranches();
+    async test(): Promise<boolean> {
+        const branches = await this.github.getBranches();
         const prefixes = this.github.getPrefixes();
         return branches.current.includes(prefixes.bugfix);
     }
 
     async handle(): Promise<string> {
-        const branches = this.github.getBranches();
+        const branches = await this.github.getBranches();
         const sha = await this.github.merge(branches.current, branches.development);
         await this.github.delete(branches.current);
 

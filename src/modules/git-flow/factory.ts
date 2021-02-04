@@ -24,6 +24,6 @@ export class GitFlowFactory {
     }
 
     private static getHandler(): GitFlowHandler {
-        return this.handlers.find(handler => handler.test()) as GitFlowHandler;
+        return this.handlers.find(async handler => await handler.test()) as GitFlowHandler;
     }
 }

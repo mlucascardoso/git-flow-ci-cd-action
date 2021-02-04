@@ -3,7 +3,7 @@ import { Branches } from '@/infra/github/protocols';
 import { Core } from './core';
 
 export interface GitHub {
-    getBranches(): Branches;
+    getBranches(): Promise<Branches>;
     getCore(): Core;
     getPrefixes(): GitFlowBranchesPrefixes;
     merge(fromBranch: string, toBranch: string): Promise<string>;

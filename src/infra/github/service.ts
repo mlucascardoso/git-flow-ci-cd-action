@@ -31,12 +31,34 @@ export class GitHubService implements GitHub {
         return this.core;
     }
 
-    public getBranches(): Branches {
+    public async getBranches(): Promise<Branches> {
+        const current = await this.getCurrentBranchName();
+
         return {
-            current: this.core.getInput('current_branch'),
+            current,
             main: this.core.getInput('master_branch'),
             development: this.core.getInput('development_branch'),
         };
+    }
+
+    private async getCurrentBranchName(): Promise<string> {
+        let branchName = this.core.getInput('current_branch');
+
+        if (branchName.includes('refs/pull/')) {
+            const pull = branchName.split('refs/pull/').join('').replace('/merge', '');
+            branchName = await this.getPullRequestHeadBranch(pull);
+        }
+
+        return branchName;
+    }
+
+    private async getPullRequestHeadBranch(pull: string): Promise<string> {
+        const instance = this.getOctokitInstance();
+        const owner = this.client.context.actor;
+        const repo = this.client.context.repo.repo;
+        const response = await instance.request(`GET /repos/${owner}/${repo}/pulls/${pull}`);
+
+        return response.head.ref;
     }
 
     public getPrefixes(): GitFlowBranchesPrefixes {
