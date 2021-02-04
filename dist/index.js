@@ -5901,7 +5901,6 @@ class GitHubService {
         return __awaiter(this, void 0, void 0, function* () {
             const instance = this.getOctokitInstance();
             const response = yield instance.pulls.get(Object.assign(Object.assign({}, this.client.context.repo), { pull_number: pull }));
-            this.core.info(`PULL ------------> ${response.data.head.ref}`);
             return response.data.head.ref;
         });
     }
@@ -5926,12 +5925,17 @@ class GitHubService {
     }
     delete(currentBranch) {
         return __awaiter(this, void 0, void 0, function* () {
-            const instance = this.getOctokitInstance();
-            yield instance.git.deleteRef({
-                owner: this.client.context.actor,
-                repo: this.client.context.repo.repo,
-                ref: `heads/${currentBranch}`,
-            });
+            // const instance = this.getOctokitInstance();
+            // console.log(this.client.context.);
+            this.core.info(`CURRENT BRANCH -> ${currentBranch}`);
+            this.core.info(`
+            CLIENT CONTEXT -----------------------------> 
+            ${JSON.stringify(this.client.context)}`);
+            // await instance.git.deleteRef({
+            //     owner: this.client.context.actor,
+            //     repo: this.client.context.repo.repo,
+            //     ref: `heads/${currentBranch}`,
+            // });
         });
     }
     createTag(tag, sha) {
@@ -6060,9 +6064,10 @@ class Feature {
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
             const branches = yield this.github.getBranches();
-            const sha = yield this.github.merge(branches.current, branches.development);
+            // const sha = await this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
-            return sha;
+            // return sha;
+            return '';
         });
     }
 }
