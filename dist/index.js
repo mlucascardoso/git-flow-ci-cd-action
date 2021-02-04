@@ -5878,11 +5878,33 @@ class GitHubService {
         return this.core;
     }
     getBranches() {
-        return {
-            current: this.core.getInput('current_branch'),
-            main: this.core.getInput('master_branch'),
-            development: this.core.getInput('development_branch'),
-        };
+        return __awaiter(this, void 0, void 0, function* () {
+            const current = yield this.getCurrentBranchName();
+            return {
+                current,
+                main: this.core.getInput('master_branch'),
+                development: this.core.getInput('development_branch'),
+            };
+        });
+    }
+    getCurrentBranchName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let branchName = this.core.getInput('current_branch');
+            if (branchName.includes('refs/pull/')) {
+                const pull = branchName.split('refs/pull/').join('').replace('/merge', '');
+                branchName = yield this.getPullRequestHeadBranch(pull);
+            }
+            return branchName;
+        });
+    }
+    getPullRequestHeadBranch(pull) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const instance = this.getOctokitInstance();
+            const owner = this.client.context.actor;
+            const repo = this.client.context.repo.repo;
+            const response = yield instance.request(`GET /repos/${owner}/${repo}/pulls/${pull}`);
+            return response.head.ref;
+        });
     }
     getPrefixes() {
         return {
@@ -5926,10 +5948,19 @@ exports.GitHubService = GitHubService;
 /***/ }),
 
 /***/ 2801:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitFlowFactory = void 0;
 const service_1 = __nccwpck_require__(3749);
@@ -5951,7 +5982,7 @@ class GitFlowFactory {
         ];
     }
     static getHandler() {
-        return this.handlers.find(handler => handler.test());
+        return this.handlers.find((handler) => __awaiter(this, void 0, void 0, function* () { return yield handler.test(); }));
     }
 }
 exports.GitFlowFactory = GitFlowFactory;
@@ -5980,13 +6011,15 @@ class BugFix {
         this.github = github;
     }
     test() {
-        const branches = this.github.getBranches();
-        const prefixes = this.github.getPrefixes();
-        return branches.current.includes(prefixes.bugfix);
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = yield this.github.getBranches();
+            const prefixes = this.github.getPrefixes();
+            return branches.current.includes(prefixes.bugfix);
+        });
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
-            const branches = this.github.getBranches();
+            const branches = yield this.github.getBranches();
             const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
             return sha;
@@ -6019,13 +6052,15 @@ class Feature {
         this.github = github;
     }
     test() {
-        const branches = this.github.getBranches();
-        const prefixes = this.github.getPrefixes();
-        return branches.current.includes(prefixes.feature);
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = yield this.github.getBranches();
+            const prefixes = this.github.getPrefixes();
+            return branches.current.includes(prefixes.feature);
+        });
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
-            const branches = this.github.getBranches();
+            const branches = yield this.github.getBranches();
             const sha = yield this.github.merge(branches.current, branches.development);
             yield this.github.delete(branches.current);
             return sha;
@@ -6058,13 +6093,15 @@ class HotFix {
         this.github = github;
     }
     test() {
-        const branches = this.github.getBranches();
-        const prefixes = this.github.getPrefixes();
-        return branches.current.includes(prefixes.hotfix);
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = yield this.github.getBranches();
+            const prefixes = this.github.getPrefixes();
+            return branches.current.includes(prefixes.hotfix);
+        });
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
-            const branches = this.github.getBranches();
+            const branches = yield this.github.getBranches();
             const prefixes = this.github.getPrefixes();
             const sha = yield this.merge(branches);
             yield this.github.delete(branches.current);
@@ -6141,13 +6178,15 @@ class Release {
         this.github = github;
     }
     test() {
-        const branches = this.github.getBranches();
-        const prefixes = this.github.getPrefixes();
-        return branches.current.includes(prefixes.release);
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = yield this.github.getBranches();
+            const prefixes = this.github.getPrefixes();
+            return branches.current.includes(prefixes.release);
+        });
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
-            const branches = this.github.getBranches();
+            const branches = yield this.github.getBranches();
             const prefixes = this.github.getPrefixes();
             const sha = yield this.merge(branches);
             yield this.github.delete(branches.current);
