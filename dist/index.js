@@ -5998,7 +5998,7 @@ class GitFlowFactory {
         return __awaiter(this, void 0, void 0, function* () {
             let handler = undefined;
             for (const gitFlowHandler of this.handlers) {
-                const isValid = gitFlowHandler.test();
+                const isValid = yield gitFlowHandler.test();
                 if (isValid) {
                     handler = gitFlowHandler;
                 }
