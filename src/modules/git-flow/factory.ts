@@ -16,8 +16,8 @@ export class GitFlowFactory {
 
     private static setHandlers(github: GitHub): void {
         this.handlers = [
-            new Feature(github),
             new BugFix(github),
+            new Feature(github),
             new HotFix(github),
         ];
     }
