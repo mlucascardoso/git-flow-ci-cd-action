@@ -5918,7 +5918,6 @@ class GitHubService {
         return __awaiter(this, void 0, void 0, function* () {
             const instance = this.getOctokitInstance();
             const response = yield instance.repos.merge(Object.assign(Object.assign({}, this.client.context.repo), { base: toBranch, head: fromBranch }));
-            console.log(response);
             const sha = response.data.sha;
             this.core.info(`sha ${sha}`);
             return sha;
