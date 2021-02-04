@@ -7,10 +7,10 @@ import { GitHub } from '@/infra/github/protocols/git-hub';
 export class GitFlowFactory {
     private static handlers: GitFlowHandler[];
 
-    public static assemble() {
+    public static async assemble() {
         const github = GitHubFactory.assemble();
         this.setHandlers(github);
-        const handler = this.getHandler();
+        const handler = await this.getHandler();
         return new GitFlowService(handler);
     }
 
