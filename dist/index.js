@@ -5900,10 +5900,8 @@ class GitHubService {
     getPullRequestHeadBranch(pull) {
         return __awaiter(this, void 0, void 0, function* () {
             const instance = this.getOctokitInstance();
-            const owner = this.client.context.actor;
-            const repo = this.client.context.repo.repo;
-            const response = yield instance.request(`GET /repos/${owner}/${repo}/pulls/${pull}`);
-            return response.head.ref;
+            const response = yield instance.pulls.get(Object.assign(Object.assign({}, this.client.context.repo), { pull_number: pull }));
+            return response.data.head.ref;
         });
     }
     getPrefixes() {
