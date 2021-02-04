@@ -5944,7 +5944,9 @@ class GitFlowFactory {
     }
     static setHandlers(github) {
         this.handlers = [
+            new handlers_1.BugFix(github),
             new handlers_1.Feature(github),
+            new handlers_1.HotFix(github),
         ];
     }
     static getHandler() {
@@ -5952,6 +5954,45 @@ class GitFlowFactory {
     }
 }
 exports.GitFlowFactory = GitFlowFactory;
+
+
+/***/ }),
+
+/***/ 3700:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BugFix = void 0;
+class BugFix {
+    constructor(github) {
+        this.github = github;
+    }
+    test() {
+        const branches = this.github.getBranches();
+        const prefixes = this.github.getPrefixes();
+        return branches.current.includes(prefixes.bugfix);
+    }
+    handle() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = this.github.getBranches();
+            const sha = yield this.github.merge(branches.current, branches.development);
+            yield this.github.delete(branches.current);
+            return sha;
+        });
+    }
+}
+exports.BugFix = BugFix;
 
 
 /***/ }),
@@ -5995,6 +6036,64 @@ exports.Feature = Feature;
 
 /***/ }),
 
+/***/ 2650:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.HotFix = void 0;
+class HotFix {
+    constructor(github) {
+        this.github = github;
+    }
+    test() {
+        const branches = this.github.getBranches();
+        const prefixes = this.github.getPrefixes();
+        return branches.current.includes(prefixes.hotfix);
+    }
+    handle() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const branches = this.github.getBranches();
+            const prefixes = this.github.getPrefixes();
+            const sha = yield this.merge(branches);
+            yield this.github.delete(branches.current);
+            yield this.createTag({ branches, prefixes, sha });
+            return sha;
+        });
+    }
+    merge(branches) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.github.merge(branches.current, branches.development);
+            const sha = yield this.github.merge(branches.current, branches.main);
+            return sha;
+        });
+    }
+    createTag(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tag = this.getTagName(params.branches.current, params.prefixes.hotfix, params.prefixes.tag);
+            yield this.github.createTag(tag, params.sha);
+        });
+    }
+    getTagName(currentBranch, hotfixPrefix, tagPrefix) {
+        const branchName = currentBranch.split(hotfixPrefix);
+        return `${tagPrefix}${branchName}`;
+    }
+}
+exports.HotFix = HotFix;
+
+
+/***/ }),
+
 /***/ 7467:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -6011,7 +6110,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__nccwpck_require__(3700), exports);
 __exportStar(__nccwpck_require__(4426), exports);
+__exportStar(__nccwpck_require__(2650), exports);
 
 
 /***/ }),
@@ -6038,7 +6139,9 @@ class GitFlowService {
     }
     handle() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.handler.handle();
+            if (this.handler) {
+                return this.handler.handle();
+            }
         });
     }
 }
