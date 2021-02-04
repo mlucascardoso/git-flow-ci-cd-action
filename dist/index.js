@@ -6086,12 +6086,7 @@ class HotFix {
         });
     }
     getTagName(currentBranch, hotfixPrefix, tagPrefix) {
-        this.github.getCore().info(`currentBranch -------> ${currentBranch}`);
-        this.github.getCore().info(`hotfixPrefix -------> ${hotfixPrefix}`);
-        this.github.getCore().info(`tagPrefix -------> ${tagPrefix}`);
-        const branchName = currentBranch.split(hotfixPrefix);
-        this.github.getCore().info(`branchName -------> ${branchName}`);
-        this.github.getCore().info(`tagName -------> ${tagPrefix}${branchName}`);
+        const branchName = currentBranch.split(hotfixPrefix).join('');
         return `${tagPrefix}${branchName}`;
     }
 }
