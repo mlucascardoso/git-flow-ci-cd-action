@@ -78,6 +78,7 @@ export class GitHubService implements GitHub {
         await instance.git.createRef({
             ...this.client.context.repo,
             ref: `refs/tags/${tag}`,
+            sha,
         });
     }
 }

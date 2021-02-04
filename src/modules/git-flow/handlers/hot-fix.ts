@@ -1,5 +1,5 @@
-import { GitFlowHandler } from '@/modules/git-flow/protocols';
-import { GitHub } from '@/infra/github/protocols';
+import { CreateTagParams, GitFlowHandler } from '@/modules/git-flow/protocols';
+import { Branches, GitHub } from '@/infra/github/protocols';
 
 export class HotFix implements GitFlowHandler {
     private readonly github: GitHub;
@@ -17,17 +17,34 @@ export class HotFix implements GitFlowHandler {
     public async handle(): Promise<string> {
         const branches = this.github.getBranches();
         const prefixes = this.github.getPrefixes();
-        const tagName = this.getTagName(branches.current, prefixes.hotfix, prefixes.tag);
-        const sha = await this.github.merge(branches.current, branches.main);
-        await this.github.merge(branches.current, branches.development);
+        const sha = await this.merge(branches);
         await this.github.delete(branches.current);
-        await this.github.createTag(tagName, sha);
+        await this.createTag({ branches, prefixes, sha });
 
         return sha;
     }
 
+    private async merge(branches: Branches): Promise<string> {
+        await this.github.merge(branches.current, branches.development);
+        const sha = await this.github.merge(branches.current, branches.main);
+
+        return sha;
+    }
+
+    private async createTag(params: CreateTagParams): Promise<void> {
+        const tag = this.getTagName(
+            params.branches.current,
+            params.prefixes.hotfix,
+            params.prefixes.tag,
+        );
+
+        this.github.getCore().info(`SHA -------> ${params.sha}`);
+
+        await this.github.createTag(tag, params.sha);
+    }
+
     private getTagName(currentBranch: string, hotfixPrefix: string, tagPrefix: string): string {
-        const branchName = currentBranch.split(hotfixPrefix);
+        const branchName = currentBranch.split(hotfixPrefix).join('');
         return `${tagPrefix}${branchName}`;
     }
 }
