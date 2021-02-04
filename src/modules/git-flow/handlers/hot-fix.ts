@@ -39,6 +39,8 @@ export class HotFix implements GitFlowHandler {
             params.prefixes.tag,
         );
 
+        this.github.getCore().info(`SHA -------> ${params.sha}`);
+
         await this.github.createTag(tag, params.sha);
     }
 
