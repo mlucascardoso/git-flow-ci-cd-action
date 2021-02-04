@@ -27,7 +27,7 @@ export class GitFlowFactory {
         let handler = undefined;
 
         for (const gitFlowHandler of this.handlers) {
-            const isValid = gitFlowHandler.test();
+            const isValid = await gitFlowHandler.test();
             if (isValid) {
                 handler = gitFlowHandler;
             }
