@@ -15,7 +15,7 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - name: Run git flow process
-        uses: ./ # Uses an action in the root directory
+        uses: ./
         id: git-flow
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
