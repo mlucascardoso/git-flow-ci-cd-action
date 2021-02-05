@@ -16,9 +16,6 @@ inputs:
     description: 'The development branch'
     required: true
     default: 'develop'
-  current_branch:
-    description: 'The current branch'
-    required: true
   feature_branch_prefix:
     description: 'The feature_branch_prefix token'
     required: true
