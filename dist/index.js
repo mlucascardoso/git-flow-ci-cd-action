@@ -5863,6 +5863,7 @@ class GitHubService {
     constructor(client, core) {
         this.client = client;
         this.core = core;
+        this.core.info(`REF -------------> ${this.client.context.ref.replace('refs/heads/', '')}`);
     }
     connect() {
         const token = this.core.getInput('github_token');
@@ -5915,10 +5916,12 @@ class GitHubService {
         };
     }
     merge(fromBranch, toBranch) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const instance = this.getOctokitInstance();
             const response = yield instance.repos.merge(Object.assign(Object.assign({}, this.client.context.repo), { base: toBranch, head: fromBranch }));
-            const sha = response.data.sha;
+            this.core.info(`TO BRANCH ------> ${toBranch}`);
+            const sha = (_a = response.data) === null || _a === void 0 ? void 0 : _a.sha;
             this.core.info(`sha ${sha}`);
             return sha;
         });

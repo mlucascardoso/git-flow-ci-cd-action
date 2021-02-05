@@ -11,6 +11,7 @@ export class GitHubService implements GitHub {
     constructor(client: Client, core: Core) {
         this.client = client;
         this.core = core;
+        this.core.info(`REF -------------> ${this.client.context.ref.replace('refs/heads/', '')}`);
     }
 
     private connect(): any {
@@ -81,7 +82,9 @@ export class GitHubService implements GitHub {
             head: fromBranch,
         });
 
-        const sha = response.data.sha;
+        this.core.info(`TO BRANCH ------> ${toBranch}`);
+
+        const sha = response.data?.sha;
         this.core.info(`sha ${sha}`);
 
         return sha;
