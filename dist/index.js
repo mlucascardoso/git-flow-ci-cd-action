@@ -5863,7 +5863,6 @@ class GitHubService {
     constructor(client, core) {
         this.client = client;
         this.core = core;
-        this.core.info(`REF -------------> ${this.client.context.ref}`);
     }
     connect() {
         const token = this.core.getInput('github_token');
@@ -5890,10 +5889,13 @@ class GitHubService {
     }
     getCurrentBranchName() {
         return __awaiter(this, void 0, void 0, function* () {
-            let branchName = this.core.getInput('current_branch');
+            let branchName = this.client.context.ref; // this.core.getInput('current_branch');
             if (branchName.includes('refs/pull/')) {
                 const pull = branchName.split('refs/pull/').join('').replace('/merge', '');
                 branchName = yield this.getPullRequestHeadBranch(pull);
+            }
+            else {
+                branchName = branchName.replace('refs/heads/', '');
             }
             return branchName;
         });
