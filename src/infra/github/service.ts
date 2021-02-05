@@ -42,11 +42,13 @@ export class GitHubService implements GitHub {
     }
 
     private async getCurrentBranchName(): Promise<string> {
-        let branchName = this.core.getInput('current_branch');
+        let branchName = this.client.context.ref; // this.core.getInput('current_branch');
 
         if (branchName.includes('refs/pull/')) {
             const pull = branchName.split('refs/pull/').join('').replace('/merge', '');
             branchName = await this.getPullRequestHeadBranch(pull);
+        } else {
+            branchName = branchName.replace('refs/heads/', '');
         }
 
         return branchName;
@@ -81,7 +83,9 @@ export class GitHubService implements GitHub {
             head: fromBranch,
         });
 
-        const sha = response.data.sha;
+        this.core.info(`TO BRANCH ------> ${toBranch}`);
+
+        const sha = response.data?.sha;
         this.core.info(`sha ${sha}`);
 
         return sha;

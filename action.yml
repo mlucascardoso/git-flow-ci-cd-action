@@ -22,21 +22,23 @@ inputs:
   feature_branch_prefix:
     description: 'The feature_branch_prefix token'
     required: true
+    default: 'feature/'
   bugfix_branch_prefix:
     description: 'The bugfix_branch_prefix token'
     required: true
+    default: 'bugfix/'
   release_branch_prefix:
     description: 'The release_branch_prefix token'
     required: true
+    default: 'release/'
   hotfix_branch_prefix:
     description: 'The hotfix_branch_prefix token'
     required: true
-  support_branch_prefix:
-    description: 'The support_branch_prefix token'
-    required: true
+    default: 'hotfix/'
   tag_prefix:
     description: 'The tag_prefix token'
     required: true
+    default: 'v'
 runs:
   using: 'node12'
   main: 'dist/index.js'
