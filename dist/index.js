@@ -5863,7 +5863,6 @@ class GitHubService {
     constructor(client, core) {
         this.client = client;
         this.core = core;
-        this.core.info(`REF -------------> ${this.client.context.ref.replace('refs/heads/', '')}`);
     }
     connect() {
         const token = this.core.getInput('github_token');
