@@ -10,15 +10,10 @@ jobs:
     name: Run Git Flow
     steps:
       - uses: actions/checkout@v2
-      - name: Extract current branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
       - name: Run git flow process
         uses: ./
         id: git-flow
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
           development_branch: 'development'
