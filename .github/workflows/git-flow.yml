@@ -20,8 +20,3 @@ jobs:
           current_branch: ${{ steps.extract_branch.outputs.branch }}
           master_branch: 'main'
           development_branch: 'development'
-          feature_branch_prefix: 'feature/'
-          bugfix_branch_prefix: 'bugfix/'
-          release_branch_prefix: 'release/'
-          hotfix_branch_prefix: 'hotfix/'
-          tag_prefix: 'v'
