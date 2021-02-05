@@ -11,7 +11,7 @@ export class GitHubService implements GitHub {
     constructor(client: Client, core: Core) {
         this.client = client;
         this.core = core;
-        this.core.info(`REF -------------> ${this.client.context.ref}`);
+        this.core.info(`REF -------------> ${this.client.context.ref.replace('refs/heads/', '')}`);
     }
 
     private connect(): any {
