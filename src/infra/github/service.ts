@@ -11,7 +11,6 @@ export class GitHubService implements GitHub {
     constructor(client: Client, core: Core) {
         this.client = client;
         this.core = core;
-        this.core.info(`REF -------------> ${this.client.context.ref}`);
     }
 
     private connect(): any {
@@ -43,11 +42,13 @@ export class GitHubService implements GitHub {
     }
 
     private async getCurrentBranchName(): Promise<string> {
-        let branchName = this.core.getInput('current_branch');
+        let branchName = this.client.context.ref;
 
         if (branchName.includes('refs/pull/')) {
             const pull = branchName.split('refs/pull/').join('').replace('/merge', '');
             branchName = await this.getPullRequestHeadBranch(pull);
+        } else {
+            branchName = branchName.replace('refs/heads/', '');
         }
 
         return branchName;
