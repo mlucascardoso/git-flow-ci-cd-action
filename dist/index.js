@@ -5889,7 +5889,7 @@ class GitHubService {
     }
     getCurrentBranchName() {
         return __awaiter(this, void 0, void 0, function* () {
-            let branchName = this.client.context.ref; // this.core.getInput('current_branch');
+            let branchName = this.client.context.ref;
             if (branchName.includes('refs/pull/')) {
                 const pull = branchName.split('refs/pull/').join('').replace('/merge', '');
                 branchName = yield this.getPullRequestHeadBranch(pull);
